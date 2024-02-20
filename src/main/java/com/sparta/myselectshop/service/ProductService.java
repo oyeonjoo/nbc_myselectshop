@@ -1,6 +1,6 @@
 package com.sparta.myselectshop.service;
 
-import com.sparta.myselectshop.dto.ProductMyPriceRequestDto;
+import com.sparta.myselectshop.dto.ProductMypriceRequestDto;
 import com.sparta.myselectshop.dto.ProductRequestDto;
 import com.sparta.myselectshop.dto.ProductResponseDto;
 import com.sparta.myselectshop.entity.*;
@@ -33,7 +33,7 @@ public class ProductService {
     }
 
     @Transactional
-    public ProductResponseDto updateProduct(Long id, ProductMyPriceRequestDto requestDto) {
+    public ProductResponseDto updateProduct(Long id, ProductMypriceRequestDto requestDto) {
         int myprice = requestDto.getMyprice();
         if (myprice < MIN_MY_PRICE) {
             throw new IllegalArgumentException("유효하지 않은 관심 가격입니다. 최소 " + MIN_MY_PRICE + "원 이상으로 설정해 주세요.");
