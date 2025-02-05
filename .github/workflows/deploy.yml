@@ -28,6 +28,11 @@ jobs:
       - name: Build with Gradle Wrapper
         run: ./gradlew bootJar
 
+      - name: Set environment variables
+        run: |
+          echo "DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }}" >> $GITHUB_ENV 
+          echo "DOCKER_PASSWORD=${{ secrets.DOCKER_PASSWORD }}" >> $GITHUB_ENV 
+
       - name: Build and Push Docker Image
         run: |
           echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
@@ -55,9 +60,8 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           port: 22
           script: |
-            export DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }}
             cd ~
             sudo docker compose down
-            sudo docker pull $DOCKER_USERNAME/shop:latest
+            sudo docker pull ${{ secrets.DOCKER_USERNAME }}/shop:latest
             sudo docker compose up -d
             sudo docker image prune -f
