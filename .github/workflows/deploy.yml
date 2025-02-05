@@ -60,6 +60,7 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           port: 22
           script: |
+            export DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }}
             cd ~
             sudo docker compose down
             sudo docker pull ${{ secrets.DOCKER_USERNAME }}/shop:latest
