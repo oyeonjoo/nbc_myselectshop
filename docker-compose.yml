@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   app:
-    image: ${DOCKER_USERNAME}/shop:latest
+    image: ${{ secrets.DOCKER_USERNAME }}/shop:latest
     container_name: shop
     restart: always
     ports:
