@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  app:
+    image: ${{ secrets.DOCKER_USERNAME }}/shop:latest
+    container_name: shop
+    restart: always
+    ports:
+      - "80:8080"
+    depends_on:
+      - mysql
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/shop?serverTimezone=Asia/Seoul
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: 1234
+
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: shop
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+volumes:
+  mysql-data:
